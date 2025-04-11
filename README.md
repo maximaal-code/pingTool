@@ -24,7 +24,7 @@ The tool is available from the docker hub:
 ```
 docker pull maximaaldocker/pingthing:latest
 ```
-You can use the docker-compose.yml file as a reference for deploying the tool.
+You can use the `docker-compose.yml` file as a reference for deploying the tool.
 
 
 
