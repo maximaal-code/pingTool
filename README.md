@@ -20,7 +20,7 @@
 
 
 ## Docker usage
-The tool is available from the docker hub:
+The tool is available from the [docker hub](https://hub.docker.com/repository/docker/maximaaldocker/pingthing/general):
 ```
 docker pull maximaaldocker/pingthing:latest
 ```
