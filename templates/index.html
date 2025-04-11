@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Packet Analyser{% endblock %}</title>
+    <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+    <script type="text/javascript">
+        let socket = io.connect('http://' + document.domain + ':' + location.port)
+        
+        socket.on('connect', function () {
+            console.log('Connected to the server');
+            let mainElement = document.getElementById("main")
+            const element = document.createElement("article");
+            element.innerHTML = "Connection established: <b style='color: greenyellow;'>200</b> OK!"
+            mainElement.appendChild(element)
+        });
+
+        socket.on('response', function (data) {
+            console.log(data);
+
+        
+            const [ip, headers] = data
+            
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tbody = document.createElement('tbody');
+            
+            table.appendChild(thead);
+            table.appendChild(tbody);
+    
+
+            for (const prop in headers) {
+                if (headers.hasOwnProperty(prop)) {
+                    const row = table.insertRow()
+                    row.innerHTML = `<td>${prop}</td><td>${headers[prop]}</td>`
+                }
+            }
+
+            const article = document.createElement("article");
+            article.style = 'text-align: left;'
+
+            const p = document.createElement("p")
+            p.innerHTML = `Ping from: <b>${ip}</b>, at <b>${new Date().toISOString()}</b>`
+            
+            const details = document.createElement("details")
+            const summary = document.createElement("summary")
+            summary.innerText = "Headers" 
+            
+            details.appendChild(summary)
+            details.appendChild(table)
+            article.appendChild(p)
+            article.appendChild(details)
+            document.getElementById('main').appendChild(article);
+
+        });
+
+    </script>
+</head>
+<body style="text-align: center;" class="container">
+    <header>
+        <h1>Packet Analyser</h1>
+    </header>
+
+    
+    <main id="main">
+
+    </main>
+
+
+</body>
+</html>

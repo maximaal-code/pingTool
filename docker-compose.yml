@@ -1,0 +1,6 @@
+services:
+  pingthing:
+    build: .
+    image: maximaaldocker/pingthing:latest
+    ports:
+      - 5000:5000
