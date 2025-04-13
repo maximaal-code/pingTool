@@ -19,7 +19,7 @@ def index():
 @app.route('/ping')
 def ping():
     socketio.emit('response', [request.remote_addr, dict(request.headers)])
-    return 'Ping Success'
+    return 'Ping Success\n'
 
 
 if __name__ == '__main__':
